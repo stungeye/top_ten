@@ -1,0 +1,18 @@
+<p>
+  <b>Year:</b>
+  <%=h @soundscan.year %>
+</p>
+
+<p>
+  <b>Sales:</b>
+  <%=h @soundscan.sales %>
+</p>
+
+<p>
+  <b>Album:</b>
+  <%=h @soundscan.album_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_soundscan_path(@soundscan) %> |
+<%= link_to 'Back', soundscans_path %>

@@ -1,0 +1,24 @@
+<h1>Editing soundscan</h1>
+
+<% form_for(@soundscan) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :year %><br />
+    <%= f.text_field :year %>
+  </p>
+  <p>
+    <%= f.label :sales %><br />
+    <%= f.text_field :sales %>
+  </p>
+  <p>
+    <%= f.label :album_id %><br />
+    <%= f.text_field :album_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @soundscan %> |
+<%= link_to 'Back', soundscans_path %>
