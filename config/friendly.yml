@@ -1,0 +1,6 @@
+development:
+  :adapter:  "mysql"
+  :host:     "localhost"
+  :user:     "music_database"
+  :password: "mmcjd334"
+  :database: "music_database"
