@@ -1,9 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :soundscans
-
-  map.resources :albums
-
-  map.resources :artists
+  map.resources :artists, :has_many => :albums
 
   # The priority is based upon order of creation: first created -> highest priority.
 

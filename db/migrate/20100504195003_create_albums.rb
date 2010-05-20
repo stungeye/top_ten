@@ -3,7 +3,7 @@ class CreateAlbums < ActiveRecord::Migration
     create_table :albums do |t|
       t.string :title
       t.string :wikipedia_url
-      t.int :artist_id
+      t.integer :artist_id
 
       t.timestamps
     end

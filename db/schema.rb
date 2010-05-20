@@ -9,13 +9,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100504204002) do
+ActiveRecord::Schema.define(:version => 20100520040614) do
 
   create_table "albums", :force => true do |t|
     t.string   "title"
     t.string   "wikipedia_url"
+    t.integer  "artist_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mbid"
+    t.datetime "release_date"
+    t.string   "lastfm_url"
+    t.string   "top_tags_data"
+    t.string   "images_data"
+    t.string   "description_data"
   end
 
   create_table "artists", :force => true do |t|
@@ -23,6 +30,14 @@ ActiveRecord::Schema.define(:version => 20100504204002) do
     t.string   "wikipedia_url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mbid"
+    t.string   "lastfm_url"
+    t.string   "similar_artists_data"
+    t.string   "images_data"
+    t.string   "tags_data"
+    t.string   "bio_data"
+    t.boolean  "processed_similar"
+    t.boolean  "processed_top_albums"
   end
 
   create_table "soundscans", :force => true do |t|
