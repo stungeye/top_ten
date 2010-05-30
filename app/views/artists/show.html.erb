@@ -8,6 +8,6 @@
   <%=h @artist.wikipedia_url %>
 </p>
 
-
+<%= link_to 'Albums', artist_albums_path(@artist) %> |
 <%= link_to 'Edit', edit_artist_path(@artist) %> |
 <%= link_to 'Back', artists_path %>

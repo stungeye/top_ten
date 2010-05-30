@@ -1,6 +1,6 @@
 <h1>Editing album</h1>
 
-<% form_for(@album) do |f| %>
+<% form_for([@artist, @album]) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -12,13 +12,13 @@
     <%= f.text_field :wikipedia_url %>
   </p>
   <p>
-    <%= f.label :artist_id %><br />
-    <%= f.text_field :artist_id %>
+    <%= f.label :artist_id %>:
+    <%= "#{@artist.name} - #{@artist.id}" %>
   </p>
   <p>
     <%= f.submit 'Update' %>
   </p>
 <% end %>
 
-<%= link_to 'Show', @album %> |
-<%= link_to 'Back', albums_path %>
+<%= link_to 'Show', [@artist, @album] %> |
+<%= link_to 'Back', artist_albums_path(@artist)  %>

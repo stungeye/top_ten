@@ -10,9 +10,9 @@
 
 <p>
   <b>Artist:</b>
-  <%=h @album.artist_id %>
+  <%=h "#{@artist.name} - #{@album.artist_id}" %>
 </p>
 
 
-<%= link_to 'Edit', edit_album_path(@album) %> |
-<%= link_to 'Back', albums_path %>
+<%= link_to 'Edit', [:edit, @artist, @album] %> |
+<%= link_to 'Back',  artist_albums_path(@artist)  %>

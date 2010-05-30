@@ -1,8 +1,14 @@
 class AlbumsController < ApplicationController
+  before_filter :load_artist
+  
   # GET /albums
   # GET /albums.xml
   def index
-    @albums = Album.all
+    if @artist.nil?
+      @albums = Album.all
+    else
+      @albums = @artist.albums.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +30,7 @@ class AlbumsController < ApplicationController
   # GET /albums/new
   # GET /albums/new.xml
   def new
-    @album = Album.new
+    @album = @artist.albums.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,12 +46,12 @@ class AlbumsController < ApplicationController
   # POST /albums
   # POST /albums.xml
   def create
-    @album = Album.new(params[:album])
+    @album = @artist.albums.build(params[:album])
 
     respond_to do |format|
       if @album.save
         flash[:notice] = 'Album was successfully created.'
-        format.html { redirect_to(@album) }
+        format.html { redirect_to artist_albums_path(@artist) }
         format.xml  { render :xml => @album, :status => :created, :location => @album }
       else
         format.html { render :action => "new" }
@@ -62,7 +68,7 @@ class AlbumsController < ApplicationController
     respond_to do |format|
       if @album.update_attributes(params[:album])
         flash[:notice] = 'Album was successfully updated.'
-        format.html { redirect_to(@album) }
+        format.html { redirect_to artist_albums_path(@artist) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -78,8 +84,12 @@ class AlbumsController < ApplicationController
     @album.destroy
 
     respond_to do |format|
-      format.html { redirect_to(albums_url) }
+      format.html { redirect_to artist_albums_path(@artist) }
       format.xml  { head :ok }
     end
+  end
+protected
+  def load_artist
+    @artist = Artist.find(params[:artist_id]) unless params[:artist_id].nil?
   end
 end

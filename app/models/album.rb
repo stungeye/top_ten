@@ -1,4 +1,5 @@
 class Album < ActiveRecord::Base
+  validates_length_of :title, :minimum => 10
   DATA_COLUMNS = [:top_tags_data, :images_data, :description_data]
   belongs_to :artist
   has_many :soundscans

@@ -9,16 +9,20 @@
 
 <% @albums.each do |album| %>
   <tr>
-    <td><%=h album.title %></td>
-    <td><%=h album.wikipedia_url %></td>
-    <td><%=h album.artist_id %></td>
-    <td><%= link_to 'Show', album %></td>
-    <td><%= link_to 'Edit', edit_album_path(album) %></td>
-    <td><%= link_to 'Destroy', album, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= album.title %></td>
+    <td><%= album.wikipedia_url %></td>
+    <td><%= album.artist_id %></td>
+    <% if !@artist.nil? %>
+      <td><%= link_to 'Show', [@artist, album] %></td>
+      <td><%= link_to 'Edit',[:edit, @artist, album] %></td>
+      <td><%= link_to 'Destroy', [@artist, album], :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New album', new_album_path %>
+<% if !@artist.nil? %>
+  <%= link_to 'New page', new_artist_album_path %>
+<% end %>

@@ -10,6 +10,7 @@
   <tr>
     <td><%=h artist.name %></td>
     <td><%=h artist.wikipedia_url %></td>
+    <td><%= link_to 'Albums', artist_albums_path(artist) %> </td>
     <td><%= link_to 'Show', artist %></td>
     <td><%= link_to 'Edit', edit_artist_path(artist) %></td>
     <td><%= link_to 'Destroy', artist, :confirm => 'Are you sure?', :method => :delete %></td>

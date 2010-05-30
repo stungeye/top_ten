@@ -134,37 +134,42 @@ last = GluttonLastfm.new '923a366899eebed73ba992fff9be063e'
 #end
 
 
-all_artists = Artist.all(:conditions => { :processed_similar => false })
-
-new_count = 0
-
-all_artists.each do |source_artist|
-  next if source_artist.name == 'Various Artists'
-  puts "Mining #{source_artist.name} for similars:"
-  source_artist.similar_artists_data.each do |sim|
-    current_last_fm_artist = last.artist_info sim["name"]
-    artist = Artist.find(:first, :conditions => {:name => sim["name"]})
-    if artist.nil?
-      new_count += 1
-      artist = Artist.new(:name => sim["name"], :processed_similar => false, :processed_top_albums => false)
-      artist.mbid = current_last_fm_artist['mbid']
-      artist.lastfm_url = current_last_fm_artist['url']
-      artist.similar_artists_data = current_last_fm_artist['similar']['artist'] unless current_last_fm_artist['similar'].nil?
-      artist.images_data = current_last_fm_artist['image']
-      artist.tags_data = current_last_fm_artist['tags']['tag'] unless current_last_fm_artist['tags'].nil?
-      artist.bio_data = current_last_fm_artist['bio']
-      
-      if artist.save
-        puts "  Added #{sim["name"]} - Listeners: #{current_last_fm_artist["stats"]["listeners"]}"
-      else
-        puts "Error Updating #{artist[:name]}"
-      end
-    else
-      puts "  Skipping #{sim["name"]}"
-    end
-  end
-  source_artist.processed_similar = true
-  source_artist.save
-end
-
-puts "Added #{new_count} new artists."
+#all_artists = Artist.all(:conditions => { :processed_similar => false })
+#
+#new_count = 0
+#
+#all_artists.each do |source_artist|
+#  next if source_artist.name == 'Various Artists'
+#  puts "Mining #{source_artist.name} for similars:"
+#  source_artist.similar_artists_data.each do |sim|
+#    begin
+#      current_last_fm_artist = last.artist_info sim["name"]
+#    rescue
+#      puts "Error querying last.fm for #{sim["name"]}. Trying again..."
+#      current_last_fm_artist = last.artist_info sim["name"]
+#    end
+#    artist = Artist.find(:first, :conditions => {:name => sim["name"]})
+#    if artist.nil?
+#      new_count += 1
+#      artist = Artist.new(:name => sim["name"], :processed_similar => false, :processed_top_albums => false)
+#      artist.mbid = current_last_fm_artist['mbid']
+#      artist.lastfm_url = current_last_fm_artist['url']
+#      artist.similar_artists_data = current_last_fm_artist['similar']['artist'] unless current_last_fm_artist['similar'].nil?
+#      artist.images_data = current_last_fm_artist['image']
+#      artist.tags_data = current_last_fm_artist['tags']['tag'] unless current_last_fm_artist['tags'].nil?
+#      artist.bio_data = current_last_fm_artist['bio']
+#      
+#      if artist.save
+#        puts "  Added #{sim["name"]} - Listeners: #{current_last_fm_artist["stats"]["listeners"]}"
+#      else
+#        puts "  Error Adding #{artist[:name]}"
+#      end
+#    else
+#      puts "  Skipping #{sim["name"]}"
+#    end
+#  end
+#  source_artist.processed_similar = true
+#  source_artist.save
+#end
+#
+#puts "Added #{new_count} new artists."
